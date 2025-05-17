@@ -11,26 +11,29 @@
       margin: 0;
       padding: 30px;
     }
+
     #scene {
       position: relative;
       width: 100%;
+      max-width: 600px;
       height: 400px;
       background: linear-gradient(to top, #0077be 40%, #ffffff 40%);
       overflow: hidden;
       border: 3px solid #005f8c;
       border-radius: 12px;
+      margin: auto;
     }
+
     #dolphin {
       position: absolute;
-      width: 60px;
-      height: 60px;
-      background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Dolphin_icon.svg/512px-Dolphin_icon.svg.png') no-repeat center;
-      background-size: contain;
+      width: 80px;
+      height: auto;
       left: 50%;
       transform: translateX(-50%);
       top: 200px;
       transition: top 1s ease;
     }
+
     button {
       margin: 10px;
       padding: 10px 20px;
@@ -41,6 +44,7 @@
       border-radius: 8px;
       cursor: pointer;
     }
+
     button:hover {
       background: #2980b9;
     }
@@ -48,16 +52,16 @@
 </head>
 <body>
 
-  <h2>Animasi Lumba-lumba: Lompat dan Menyelam</h2>
-  <p>Klik tombol untuk melihat pergerakan lumba-lumba.</p>
+  <h2>Animasi Lumba-lumba</h2>
+  <p>Klik tombol untuk melihat lumba-lumba melompat dan menyelam!</p>
 
   <div id="scene">
-    <div id="dolphin"></div>
+    <img id="dolphin" src="https://i.ibb.co/7Q3FGZP/dolphin.png" alt="Lumba-lumba">
   </div>
 
   <div>
-    <button onclick="jump()">Lompat +4 meter</button>
-    <button onclick="dive()">Menyelam -9 meter</button>
+    <button onclick="jump()">Lompat +4 m</button>
+    <button onclick="dive()">Menyelam -9 m</button>
     <button onclick="reset()">Reset</button>
   </div>
 
@@ -67,11 +71,12 @@
     const dolphin = document.getElementById("dolphin");
     const posText = document.getElementById("pos");
 
-    let position = 0; // meter dari permukaan laut
-    const centerTop = 200; // posisi 0 di tengah
+    let position = 0;
+    const centerTop = 200;
 
     function updateDolphin() {
-      dolphin.style.top = (centerTop - position * 10) + "px"; // 1m = 10px
+      const pixels = centerTop - position * 10;
+      dolphin.style.top = pixels + "px";
       posText.textContent = position;
     }
 
@@ -94,4 +99,4 @@
   </script>
 
 </body>
-  </html>
+    </html>
