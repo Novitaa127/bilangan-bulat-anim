@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Animasi Lumba-lumba</title>
+  <meta charset="UTF-8" />
+  <title>Animasi Lumba-lumba Sederhana</title>
   <style>
     body {
       font-family: sans-serif;
       text-align: center;
       background: #ccefff;
-      margin: 0;
       padding: 30px;
     }
 
@@ -18,30 +17,29 @@
       max-width: 600px;
       height: 400px;
       background: linear-gradient(to top, #0077be 40%, #ffffff 40%);
-      overflow: hidden;
-      border: 3px solid #005f8c;
       border-radius: 12px;
+      border: 3px solid #005f8c;
       margin: auto;
+      overflow: hidden;
     }
 
     #dolphin {
       position: absolute;
-      width: 80px;
-      height: auto;
+      font-size: 40px;
+      top: 200px;
       left: 50%;
       transform: translateX(-50%);
-      top: 200px;
-      transition: top 1s ease;
+      transition: top 0.8s ease;
     }
 
     button {
-      margin: 10px;
       padding: 10px 20px;
+      margin: 10px 5px;
       font-size: 16px;
-      border: none;
       background: #3498db;
-      color: white;
+      border: none;
       border-radius: 8px;
+      color: white;
       cursor: pointer;
     }
 
@@ -53,10 +51,10 @@
 <body>
 
   <h2>Animasi Lumba-lumba</h2>
-  <p>Klik tombol untuk melihat lumba-lumba melompat dan menyelam!</p>
+  <p>Klik tombol untuk melihat lumba-lumba (🐬) bergerak!</p>
 
   <div id="scene">
-    <img id="dolphin" src="https://i.ibb.co/7Q3FGZP/dolphin.png" alt="Lumba-lumba">
+    <div id="dolphin">🐬</div>
   </div>
 
   <div>
@@ -72,31 +70,30 @@
     const posText = document.getElementById("pos");
 
     let position = 0;
-    const centerTop = 200;
+    const baseTop = 200;
 
-    function updateDolphin() {
-      const pixels = centerTop - position * 10;
-      dolphin.style.top = pixels + "px";
+    function update() {
+      dolphin.style.top = (baseTop - position * 10) + "px";
       posText.textContent = position;
     }
 
     function jump() {
       position += 4;
-      updateDolphin();
+      update();
     }
 
     function dive() {
       position -= 9;
-      updateDolphin();
+      update();
     }
 
     function reset() {
       position = 0;
-      updateDolphin();
+      update();
     }
 
-    updateDolphin();
+    update();
   </script>
 
 </body>
-    </html>
+</html>
