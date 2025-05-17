@@ -1,64 +1,46 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <title>Simulasi Garis Bilangan</title>
+  <meta charset="UTF-8">
+  <title>Animasi Lumba-lumba</title>
   <style>
     body {
       font-family: sans-serif;
       text-align: center;
-      background: #eef2f3;
-      padding: 40px;
+      background: #ccefff;
+      margin: 0;
+      padding: 30px;
     }
-
-    .number-line {
+    #scene {
       position: relative;
-      width: 840px;
+      width: 100%;
+      height: 400px;
+      background: linear-gradient(to top, #0077be 40%, #ffffff 40%);
+      overflow: hidden;
+      border: 3px solid #005f8c;
+      border-radius: 12px;
+    }
+    #dolphin {
+      position: absolute;
+      width: 60px;
       height: 60px;
-      margin: 30px auto;
-      border-top: 3px solid black;
-    }
-
-    .tick {
-      position: absolute;
-      top: 0;
-      width: 2px;
-      height: 15px;
-      background-color: black;
-    }
-
-    .label {
-      position: absolute;
-      top: 20px;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Dolphin_icon.svg/512px-Dolphin_icon.svg.png') no-repeat center;
+      background-size: contain;
+      left: 50%;
       transform: translateX(-50%);
-      font-size: 14px;
-      font-weight: bold;
+      top: 200px;
+      transition: top 1s ease;
     }
-
-    .marker {
-      position: absolute;
-      width: 18px;
-      height: 18px;
-      background: red;
-      border-radius: 50%;
-      top: -10px;
-      left: 0;
-      transform: translateX(-50%);
-      transition: left 0.5s ease-in-out; /* smooth animation */
-      z-index: 1;
-    }
-
     button {
+      margin: 10px;
       padding: 10px 20px;
-      margin: 10px 5px;
       font-size: 16px;
       border: none;
-      border-radius: 8px;
-      cursor: pointer;
       background: #3498db;
       color: white;
+      border-radius: 8px;
+      cursor: pointer;
     }
-
     button:hover {
       background: #2980b9;
     }
@@ -66,75 +48,50 @@
 </head>
 <body>
 
-  <h1>Simulasi Garis Bilangan (Dengan Animasi)</h1>
-  <p>Geser titik ke kiri atau ke kanan untuk memahami bilangan negatif dan positif.</p>
+  <h2>Animasi Lumba-lumba: Lompat dan Menyelam</h2>
+  <p>Klik tombol untuk melihat pergerakan lumba-lumba.</p>
 
-  <div class="number-line" id="numberLine">
-    <div class="marker" id="marker"></div>
+  <div id="scene">
+    <div id="dolphin"></div>
   </div>
 
   <div>
-    <button onclick="moveLeft()">Geser Kiri (-1)</button>
-    <button onclick="reset()">Reset (0)</button>
-    <button onclick="moveRight()">Geser Kanan (+1)</button>
+    <button onclick="jump()">Lompat +4 meter</button>
+    <button onclick="dive()">Menyelam -9 meter</button>
+    <button onclick="reset()">Reset</button>
   </div>
 
-  <h3>Posisi Saat Ini: <span id="currentPos">0</span></h3>
+  <h3>Posisi Saat Ini: <span id="pos">0</span> meter</h3>
 
   <script>
-    const numberLine = document.getElementById('numberLine');
-    const marker = document.getElementById('marker');
-    const currentPosDisplay = document.getElementById('currentPos');
+    const dolphin = document.getElementById("dolphin");
+    const posText = document.getElementById("pos");
 
-    const min = -10;
-    const max = 10;
-    let current = 0;
-    const tickSpacing = 40;
+    let position = 0; // meter dari permukaan laut
+    const centerTop = 200; // posisi 0 di tengah
 
-    function drawTicks() {
-      for (let i = min; i <= max; i++) {
-        const tick = document.createElement('div');
-        tick.className = 'tick';
-        tick.style.left = ((i - min) * tickSpacing) + 'px';
-
-        const label = document.createElement('div');
-        label.className = 'label';
-        label.style.left = ((i - min) * tickSpacing) + 'px';
-        label.textContent = i;
-
-        numberLine.appendChild(tick);
-        numberLine.appendChild(label);
-      }
+    function updateDolphin() {
+      dolphin.style.top = (centerTop - position * 10) + "px"; // 1m = 10px
+      posText.textContent = position;
     }
 
-    function updateMarker() {
-      const pos = (current - min) * tickSpacing;
-      marker.style.left = pos + 'px';
-      currentPosDisplay.textContent = current;
+    function jump() {
+      position += 4;
+      updateDolphin();
     }
 
-    function moveLeft() {
-      if (current > min) {
-        current--;
-        updateMarker();
-      }
-    }
-
-    function moveRight() {
-      if (current < max) {
-        current++;
-        updateMarker();
-      }
+    function dive() {
+      position -= 9;
+      updateDolphin();
     }
 
     function reset() {
-      current = 0;
-      updateMarker();
+      position = 0;
+      updateDolphin();
     }
 
-    drawTicks();
-    updateMarker();
+    updateDolphin();
   </script>
 
 </body>
-</html>
+  </html>
