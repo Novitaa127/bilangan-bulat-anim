@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Simulasi Garis Bilangan</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background: #eef2f3;
+      padding: 40px;
+    }
+
+    .number-line {
+      position: relative;
+      width: 840px;
+      height: 60px;
+      margin: 30px auto;
+      border-top: 3px solid black;
+    }
+
+    .tick {
+      position: absolute;
+      top: 0;
+      width: 2px;
+      height: 15px;
+      background-color: black;
+    }
+
+    .label {
+      position: absolute;
+      top: 20px;
+      transform: translateX(-50%);
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .marker {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background: red;
+      border-radius: 50%;
+      top: -10px;
+      left: 0;
+      transform: translateX(-50%);
+      transition: left 0.3s ease;
+      z-index: 1;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 10px 5px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #3498db;
+      color: white;
+    }
+
+    button:hover {
+      background: #2980b9;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Simulasi Garis Bilangan</h1>
+  <p>Geser titik ke kiri atau ke kanan untuk memahami bilangan negatif dan positif.</p>
+
+  <div class="number-line" id="numberLine">
+    <div class="marker" id="marker"></div>
+  </div>
+
+  <div>
+    <button onclick="moveLeft()">Geser Kiri (-1)</button>
+    <button onclick="reset()">Reset (0)</button>
+    <button onclick="moveRight()">Geser Kanan (+1)</button>
+  </div>
+
+  <h3>Posisi Saat Ini: <span id="currentPos">0</span></h3>
+
+  <script>
+    const numberLine = document.getElementById('numberLine');
+    const marker = document.getElementById('marker');
+    const currentPosDisplay = document.getElementById('currentPos');
+
+    const min = -10;
+    const max = 10;
+    let current = 0;
+    const tickSpacing = 40;
+
+    function drawTicks() {
+      for (let i = min; i <= max; i++) {
+        const tick = document.createElement('div');
+        tick.className = 'tick';
+        tick.style.left = ((i - min) * tickSpacing) + 'px';
+
+        const label = document.createElement('div');
+        label.className = 'label';
+        label.style.left = ((i - min) * tickSpacing) + 'px';
+        label.textContent = i;
+
+        numberLine.appendChild(tick);
+        numberLine.appendChild(label);
+      }
+    }
+
+    function updateMarker() {
+      const pos = (current - min) * tickSpacing;
+      marker.style.left = pos + 'px';
+      currentPosDisplay.textContent = current;
+    }
+
+    function moveLeft() {
+      if (current > min) {
+        current--;
+        updateMarker();
+      }
+    }
+
+    function moveRight() {
+      if (current < max) {
+        current++;
+        updateMarker();
+      }
+    }
+
+    function reset() {
+      current = 0;
+      updateMarker();
+    }
+
+    drawTicks();
+    updateMarker();
+  </script>
+
+</body>
+</html>
